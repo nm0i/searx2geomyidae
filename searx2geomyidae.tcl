@@ -30,16 +30,20 @@ if [catch {
 	set httpToken [::http::geturl "${searxURL}?[::http::formatQuery q ${query} format json]"]
 	set reply [::json::json2dict [::http::data $httpToken]]
 }] {
-	puts "Some error during query"
+	puts "Error during query"
 	exit
 }
 
 # puts $reply
 
 foreach result [dict get $reply results] {
-	puts "\[h|[geomyidaeStrip [dict get $result title]]|URL:[dict get $result url]|server|port]"
-	puts "[wordwrap 72 [geomyidaeStrip [dict get $result content]]]"
-	puts ""
+	if [catch {
+		puts "\[h|[geomyidaeStrip [dict get $result title]]|URL:[dict get $result url]|server|port]"
+		puts "[wordwrap 72 [geomyidaeStrip [dict get $result content]]]"
+	}] {
+		puts "Missing data"
+	}
+	puts ""		
 }
 
 puts "------------------------------------------------------------------------"
