@@ -20,7 +20,8 @@ proc wordwrap {max msg} {
 	return $msg
 }
 
-puts {[7|Search searx|/searx.dcgi?|server|port]}
+puts {[1|Back to the root|/|server|port]}
+puts {[7|New search|/searx.dcgi?|server|port]}
 puts "------------------------------------------------------------------------"
 puts "Search results for $query:"
 puts ""
@@ -42,7 +43,7 @@ foreach result [dict get $reply results] {
 }
 
 puts "------------------------------------------------------------------------"
-puts {[1|Up to server root|/|server|port]}
+puts {[1|Back to the root|/|server|port]}
 puts {[h|More about searx..|URL:https://github.com/asciimoo/searx|server|port]}
-puts "[clock format [clock seconds] -format "%H:%M:%S\n%Y-%m-%d"]"
+puts "[clock format [clock seconds] -format "%H:%M:%S %Y-%m-%d"]"
 
