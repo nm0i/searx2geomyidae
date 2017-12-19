@@ -1,9 +1,13 @@
 #!/usr/bin/tclsh
 
-package require http
-package require json
+# CONFIG
 
 set searxURL "http://me0w.net/searx/index.html/"
+
+# CONFIG END
+
+package require http
+package require json
 
 set httpToken [::http::config -urlencoding utf-8]
 
@@ -20,9 +24,8 @@ proc wordwrap {max msg} {
 	return $msg
 }
 
-puts {[1|Back to the root|/|server|port]}
+puts {[1|To /|/|server|port]}
 puts {[7|New search|/searx.dcgi?|server|port]}
-puts "------------------------------------------------------------------------"
 puts "Search results for $query:"
 puts ""
 
@@ -46,8 +49,7 @@ foreach result [dict get $reply results] {
 	puts ""		
 }
 
-puts "------------------------------------------------------------------------"
-puts {[1|Back to the root|/|server|port]}
+puts {[1|To /|/|server|port]}
 puts {[h|More about searx..|URL:https://github.com/asciimoo/searx|server|port]}
 puts "[clock format [clock seconds] -format "%H:%M:%S %Y-%m-%d"]"
 
