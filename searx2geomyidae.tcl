@@ -26,14 +26,14 @@ proc wordwrap {max msg} {
 
 puts {[1|To /|/|server|port]}
 puts {[7|New search|/searx.dcgi?|server|port]}
-puts "Search results for $query:"
+puts "Results for $query:"
 puts ""
 
 if [catch {
 	set httpToken [::http::geturl "${searxURL}?[::http::formatQuery q ${query} format json]"]
 	set reply [::json::json2dict [::http::data $httpToken]]
 }] {
-	puts "Error during query"
+	puts "Searx query error"
 	exit
 }
 
@@ -50,6 +50,6 @@ foreach result [dict get $reply results] {
 }
 
 puts {[1|To /|/|server|port]}
-puts {[h|More about searx..|URL:https://github.com/asciimoo/searx|server|port]}
+puts {[h|About searx..|URL:https://github.com/asciimoo/searx|server|port]}
 puts "[clock format [clock seconds] -format "%H:%M:%S %Y-%m-%d"]"
 
