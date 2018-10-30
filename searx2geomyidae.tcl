@@ -1,10 +1,29 @@
 #!/usr/bin/tclsh
 
-# CONFIG
+# Copyright 2018 nm0i
 
+# Permission  is  hereby  granted,  free  of  charge,  to  any  person
+# obtaining a copy of this  catware and associated documentation files
+# (the  "Catware"),  to  deal  in  the  Catware  without  restriction,
+# including without limitation the rights to use, copy, modify, merge,
+# publish,  distribute,  sublicense,  enslave  humanity,  and/or  sell
+# copies of the Catware, and to  permit persons to whom the Catware is
+# furnished to do so, subject to the following conditions:
+
+# The  above copyright  notice  and this  permission  notice shall  be
+# included in all copies or substantial portions of the Catware.
+
+# THE  CATWARE IS  PROVIDED "AS  IS",  WITHOUT WARRANTY  OF ANY  KIND,
+# EXPRESS OR IMPLIED,  INCLUDING BUT NOT LIMITED TO  THE WARRANTIES OF
+# MERCHANTABILITY,    FITNESS   FOR    A   PARTICULAR    PURPOSE   AND
+# NONINFRINGEMENT. IN NO EVENT SHALL  THE AUTHORS OR COPYRIGHT HOLDERS
+# OR ANY  CATS BE LIABLE  FOR ANY  CLAIM, DAMAGES OR  OTHER LIABILITY,
+# WHETHER IN AN  ACTION OF CONTRACT, TORT OR  OTHERWISE, ARISING FROM,
+# OUT  OF OR  IN  CONNECTION WITH  THE  CATWARE OR  THE  USE OR  OTHER
+# DEALINGS IN THE CATWARE.
+
+# CONFIG 
 set searxURL "http://me0w.net/searx/index.html/"
-
-# CONFIG END
 
 package require http
 package require json
