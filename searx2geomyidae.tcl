@@ -32,6 +32,12 @@ set httpToken [::http::config -urlencoding utf-8]
 
 set query [lindex $argv 0]
 
+if { $query == "" } {
+    puts {[1|To /|/|server|port]}
+    puts {[7|Search query|/searx.dcgi?|server|port]}
+    exit
+}
+
 proc geomyidaeStrip arg {
 	string map {| \\ [ \\ ] \\} $arg
 }
