@@ -22,13 +22,13 @@
 # OUT  OF OR  IN  CONNECTION WITH  THE  CATWARE OR  THE  USE OR  OTHER
 # DEALINGS IN THE CATWARE.
 
-# CONFIG 
-set searxURL "http://me0w.net/searx/index.html/"
+# CONFIG
+set searxURL "https://your.searx/search"
+set engines "duckduckgo,google,bing"
 
 package require http
+package require tls
 package require json
-
-set httpToken [::http::config -urlencoding utf-8]
 
 set query [lindex $argv 0]
 
@@ -39,42 +39,44 @@ if { $query == "" } {
 }
 
 proc geomyidaeStrip arg {
-	string map {| \\ [ \\ ] \\} $arg
+    string map {| \\ [ \\ ] \\} $arg
 }
 
 proc wordwrap {max msg} {
-	if { [string length $msg] > $max } {
-		regsub -all "(.{1,$max})( +|$)" $msg "\\1\\3\n" msg
-	}
-	return $msg
+    if { [string length $msg] > $max } {
+        regsub -all "(.{1,$max})( +|$)" $msg "\\1\\3\n" msg
+    }
+    return $msg
 }
 
 puts {[1|To /|/|server|port]}
 puts {[7|New search|/searx.dcgi?|server|port]}
-puts "Results for $query:"
+puts "Results for \"$query\":"
 puts ""
 
+http::register https 443 tls::socket
+set httpToken [::http::config -urlencoding utf-8]
+
 if [catch {
-	set httpToken [::http::geturl "${searxURL}?[::http::formatQuery q ${query} format json]"]
-	set reply [::json::json2dict [::http::data $httpToken]]
+    set httpToken [::http::geturl "${searxURL}?[::http::formatQuery q ${query} format json engines ${engines} ]"]
+    set reply [::json::json2dict [::http::data $httpToken]]
+    http::cleanup $httpToken
+    http::unregister https
 }] {
-	puts "Searx query error"
-	exit
+    puts "Searx query error"
+    exit
 }
 
-# puts $reply
-
 foreach result [dict get $reply results] {
-	if [catch {
-		puts "\[h|[geomyidaeStrip [dict get $result title]]|URL:[dict get $result url]|server|port]"
-		puts "[wordwrap 72 [geomyidaeStrip [dict get $result content]]]"
-	}] {
-		puts "Missing data"
-	}
-	puts ""		
+    if [catch {
+        puts "\[h|[geomyidaeStrip [dict get $result title]]|URL:[dict get $result url]|server|port]"
+        puts "[wordwrap 72 [geomyidaeStrip [dict get $result content]]]"
+    }] {
+        puts "Missing data"
+    }
+    puts ""
 }
 
 puts {[1|To /|/|server|port]}
 puts {[h|About searx..|URL:https://github.com/asciimoo/searx|server|port]}
 puts "[clock format [clock seconds] -format "%H:%M:%S %Y-%m-%d"]"
-
