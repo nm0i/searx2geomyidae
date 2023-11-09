@@ -67,6 +67,8 @@ if [catch {
     exit
 }
 
+
+
 foreach result [dict get $reply results] {
     if [catch {
         puts "\[h|[geomyidaeStrip [dict get $result title]]|URL:[dict get $result url]|server|port]"
@@ -78,5 +80,5 @@ foreach result [dict get $reply results] {
 }
 
 puts {[1|To /|/|server|port]}
-puts {[h|About searx..|URL:https://github.com/asciimoo/searx|server|port]}
+puts {[h|About searx..|URL:https://github.com/searxng/searxng|server|port]}
 puts "[clock format [clock seconds] -format "%H:%M:%S %Y-%m-%d"]"
